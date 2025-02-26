@@ -1,4 +1,3 @@
-import { GetStaticProps } from 'next';
 import { useState } from 'react';
 import { Title, Burger, Container, Group, Space, Drawer } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
@@ -7,25 +6,11 @@ import Link from 'next/link';
 import { PageLinks } from '@/components/page-elements/page-links';
 
 
-interface HeaderProps {
-    menuTitle: string;
-}
-
-// fetch IG / LinkedIn / recaptcha urls
-export const getStaticProps: GetStaticProps = async () => {
-    const menuTitle = process.env.SITE_DESCRIPTION ?? "";
-
-
-    return {
-        props: {
-            menuTitle,
-        },
-    };
-};
-
-export default function Header({ menuTitle }: Readonly<HeaderProps>) {
+export default function Header() {
     const [opened, { open, close }] = useDisclosure(false);
     const [active, setActive] = useState(PageLinks[0].link);
+    const menuTitle = process.env.NEXT_PUBLIC_SITE_DESCRIPTION ?? "";
+
     const burgerItems = PageLinks.map((link) => (
         <Link
             key={link.label}
@@ -59,7 +44,7 @@ export default function Header({ menuTitle }: Readonly<HeaderProps>) {
             <Container size="md" className={classes.inner}>
 
                 <Group justify="left" gap={10} visibleFrom="xs">
-                    <Title order={1} fw={700} >{menuTitle}</Title>
+                    <Title order={1} fw={700}>{menuTitle}</Title>
                     <Space h="xs" />
                     {items}
                 </Group>
