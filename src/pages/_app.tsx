@@ -8,13 +8,17 @@ import Footer from '@/components/page-elements/footer';
 import '@mantine/core/styles.css';
 import { theme } from '@/lib/theme';
 
+
+
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <MantineProvider theme={theme}>
+
       <Header />
-      <Notifications />
+
       <Component {...pageProps} />
       <Footer />
+      <Notifications position="top-center" zIndex={1000} />
     </MantineProvider >
   );
 }

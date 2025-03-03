@@ -37,6 +37,11 @@ a {
   text-decoration: none;
 }
 
+.mantine-Notifications-root {
+  position: fixed;
+  top: 0;
+  left: 45%;
+}
 
 .addTextSpace {
   margin: 1em;

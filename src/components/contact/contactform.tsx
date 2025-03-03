@@ -34,7 +34,19 @@ function validateEmail(data: FieldValues, key: number): boolean {
     return emailRegex.test(email);
 }
 
+function showContactNotfication(title: string, text: string, autoClose: number) {
+    notifications.show({
+        title: title,
+        message: text,
+        autoClose: autoClose,
+        color: 'var(--mantine-color-onyx-5)',
+        closeButtonProps: { 'aria-label': 'Hide notification' }
+    });
+}
+
+
 export default function Contact({ recaptchaURL }: ContactProps) {
+    // Basic form submission of name/email/message
     const methods = useGoogleForm({ form: formValues });
     const [isRecaptchaVerified, setIsRecaptchaVerified] = React.useState(false);
 
@@ -42,27 +54,13 @@ export default function Contact({ recaptchaURL }: ContactProps) {
     // eslint-disable-next-line
     const onSubmit = async (data: any) => {
         // Check for valid email, at least
-        const isValidEmail = validateEmail(data, 1045781291);
+        const isValidEmail = validateEmail(data, Number(formValues.fields[1].id)); // assumes the second field is the email
 
         if (isValidEmail) {
             await methods.submitToGoogleForms(data);
-            notifications.show({
-                title: 'Submitted!',
-                message: 'Thanks for reaching out!',
-                position: 'top-center',
-                autoClose: 5000,
-                color: 'var(--mantine-color-onyx-5)',
-            });
-
-
+            showContactNotfication('Submitted!', 'Thanks for reaching out!', 5000);
         } else {
-            notifications.show({
-                title: 'Error!!',
-                message: 'Please enter a valid email.',
-                position: 'top-center',
-                autoClose: 3000,
-                color: 'var(--mantine-color-onyx-5)',
-            });
+            showContactNotfication('Error!', 'Please enter a valid email.', 3000);
         }
     }
 
@@ -91,6 +89,7 @@ export default function Contact({ recaptchaURL }: ContactProps) {
                     </form>
                 </GoogleFormProvider>
             </Paper>
-        </ >
+        </>
     )
 }
+

@@ -1,24 +1,19 @@
-import { cloudinaryConfig } from '@/lib/cloudinary-config';
-import { thumbnail } from '@cloudinary/url-gen/actions/resize';
-import { format, quality } from '@cloudinary/url-gen/actions/delivery';
+
 import { AdvancedImage, placeholder, lazyload } from '@cloudinary/react';
+import { CloudinaryImage } from '@cloudinary/url-gen/index';
 
 interface PortfolioCldImageSmProps {
-    public_id: string;
+    image: CloudinaryImage;
 
 }
 
-export default function PortfolioCldImageSm({ public_id }: Readonly<PortfolioCldImageSmProps>) {
-    const myImage = cloudinaryConfig
-        .image(public_id)
-        .resize(thumbnail().width(280).relative())
-        .delivery(format('auto'))
-        .delivery(quality('auto'));
+export default function PortfolioCldImageSm({ image }: Readonly<PortfolioCldImageSmProps>) {
+
     return (
         <AdvancedImage
-            cldImg={myImage}
+            cldImg={image}
             style={{ maxWidth: '100%' }}
-            plugins={[placeholder(), lazyload()]}
+            plugins={[lazyload(), placeholder()]}
             loading="lazy"
         />
 

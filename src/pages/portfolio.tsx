@@ -12,17 +12,6 @@ export default function Portfolio() {
             </Head>
 
             <PortfolioPhotos />
-            {/* photos={PortfolioPhotos}
-                        render={{ image: renderNextImage }}
-                        defaultContainerWidth={1200}
-                        sizes={{
-                            size: "1168px",
-                            sizes: [
-                                { viewport: "(max-width: 1200px)", size: "calc(100vw - 32px)" },
-                            ],
-                        }}
-                    /> */}
-
         </>
     );
 }
